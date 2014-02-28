@@ -1,0 +1,16 @@
+{
+    "name": "Profiler",
+    "lowCaseName": "profiler",
+    "description": "This snippet will allows you to use fields from logged user's profile",
+    "author": "Jan Peca",
+    "version": "1.0.0",
+    "package":{
+        "elements": {
+            "snippets": [{
+                "name": "Profiler"
+            }],
+            "chunks": []
+        },
+        "systemSettings": []
+    }
+}
