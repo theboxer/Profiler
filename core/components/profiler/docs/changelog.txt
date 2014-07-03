@@ -1,5 +1,6 @@
 Changelog for Profiler.
 
+- Ability to use @INLINE in the tpls properties for inline templates. For example &inTpl=`@INLINE fullname: [[+fullname]]`
 - Added userGroups and matchAll properties to the snippet
 
 Profiler 1.0.0

@@ -21,6 +21,22 @@
  *
  */
 
+if (!function_exists('getOutput')) {
+    function getOutput($tpl, $phs = array()) {
+        global $modx;
+
+        if (strpos($tpl, '@INLINE ') !== false) {
+            $content = str_replace('@INLINE', '', $tpl);
+            /** @var modChunk $chunk */
+            $chunk = $modx->newObject('modChunk', array('name' => 'inline-' . uniqid()));
+            $chunk->setCacheable(false);
+            return $chunk->process($phs, $content);
+        }
+
+        return $modx->getChunk($tpl, $phs);
+    }
+}
+
 $inTpl = $modx->getOption('inTpl', $scriptProperties, '');
 $outTpl = $modx->getOption('outTpl', $scriptProperties, '');
 $notInGroupsTpl = $modx->getOption('notInGroupsTpl', $scriptProperties, '');
@@ -37,7 +53,7 @@ $userGroups = array_filter($userGroups);
 
 if (!isset($modx->user) || ($modx->user->id <= 0) || ($ignoreContext == 0 && !$modx->user->hasSessionContext($modx->context->key)) || (count($userGroups) > 0 && $modx->user->isMember($userGroups, $matchAll))) {
     if ($outTpl == '') return;
-    return $modx->getChunk($outTpl);
+    return getOutput($outTpl);
 }
 
 $phs = $modx->user->toArray();
@@ -47,10 +63,10 @@ unset($phs['password'], $phs['hash_class'], $phs['salt'], $phs['sessionid']);
 
 if (count($userGroups) > 0 && !$modx->user->isMember($userGroups, $matchAll)) {
     if ($notInGroupsTpl != '') {
-        return $modx->getChunk($notInGroupsTpl, $phs);
+        return getOutput($notInGroupsTpl, $phs);
     } else {
         if ($outTpl == '') return;
-        return $modx->getChunk($outTpl);
+        return getOutput($outTpl);
     }
 }
 
@@ -61,4 +77,4 @@ if ($debug == 1 || $inTpl == '') {
     return;
 }
 
-return $modx->getChunk($inTpl, $phs);
+return getOutput($inTpl, $phs);
