@@ -1,5 +1,7 @@
 Changelog for Profiler.
 
+- Added userGroups and matchAll properties to the snippet
+
 Profiler 1.0.0
 ==============
 - Initial release.
