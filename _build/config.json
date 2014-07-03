@@ -3,7 +3,7 @@
     "lowCaseName": "profiler",
     "description": "This snippet will allows you to use fields from logged user's profile",
     "author": "Jan Peca",
-    "version": "1.0.0",
+    "version": "1.1.0",
     "package":{
         "elements": {
             "snippets": [{
